@@ -1,9 +1,9 @@
 {
-    "name": "antoineaugusti/easyphpcharts",
+    "name": "iampossible/chartjs-php-bridge",
     "type": "library",
     "description": "A PHP class for chartjs.org charts.",
     "keywords": ["charts", "chart", "php charts", "visualization", "chartjs"],
-    "homepage": "https://github.com/AntoineAugusti/EasyPHPCharts",
+    "homepage": "https://github.com/iampossible/chartjs-php-bridge",
     "license": "MIT",
     "authors": [      
         {
