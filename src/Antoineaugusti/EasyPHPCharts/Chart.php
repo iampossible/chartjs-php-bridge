@@ -70,6 +70,12 @@ class Chart
 	* @var boolean $displayLegend Do we need to display a legend for the chart or not?
 	*/
 	private $displayLegend = false;
+
+
+	/**
+	* @var boolean $isFixedSize allow for fluid width and heigh?
+	*/
+	private $isFixedSize = false;
 	
 	/**
 	* @var boolean $legendIsPercentage Indicates whether the legend should be displayed as a percentage
@@ -272,10 +278,21 @@ class Chart
 	{
 		$jsCode = self::returnJS();
 
-		if (!$this->displayLegend)
-			$html = '<canvas class="chart" id="'.$this->divName.'" width="'.self::CANVAS_WIDTH_WITHOUT_LEGEND.'" height="'.self::CANVAS_HEIGHT_WITHOUT_LEGEND.'"></canvas>';
+		if (!$this->displayLegend) 
+			if($this->isFixedSize){
+				$html = '<canvas class="chart" id="'.$this->divName.'" width="'.self::CANVAS_WIDTH_WITHOUT_LEGEND.'" height="'.self::CANVAS_HEIGHT_WITHOUT_LEGEND.'"></canvas>';
+			}else{
+				$html = '<canvas class="chart" id="'.$this->divName.'"></canvas>';
+			}
+
 		else {
-			$html = '<div class="chartContainer"><canvas class="chart" id="'.$this->divName.'" width="'.self::CANVAS_WIDTH_WITH_LEGEND.'" height="'.self::CANVAS_HEIGHT_WITH_LEGEND.'"></canvas></div>';
+
+			if($this->isFixedSize){
+				$html = '<div class="chartContainer"><canvas class="chart" id="'.$this->divName.'" width="'.self::CANVAS_WIDTH_WITH_LEGEND.'" height="'.self::CANVAS_HEIGHT_WITH_LEGEND.'"></canvas></div>';
+			}else{
+				$html = '<div class="chartContainer"><canvas class="chart" id="'.$this->divName.'"></canvas></div>';			
+			}
+			
 			$html .= '<div class="containerChartLegend"><h2>'.self::TITLE_LEGEND_BLOCK.'</h2>'.self::returnLegend().'</div>';
 		}
 
@@ -448,7 +465,7 @@ class Chart
 		if (in_array($key, array('data', 'legend', 'legendData')) AND is_array($value) AND !empty($value))
 			$this->$key = $value;
 
-		if (in_array($key, array('displayLegend', 'legendIsPercentage')) AND !is_bool($value)) {
+		if (in_array($key, array('displayLegend', 'legendIsPercentage','isFixedSize')) AND !is_bool($value)) {
 			throw new \InvalidArgumentException($key.' must be a boolean.', 1);
 		}
 
