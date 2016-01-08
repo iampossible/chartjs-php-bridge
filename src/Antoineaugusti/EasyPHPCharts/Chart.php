@@ -480,6 +480,8 @@ class Chart
 				$this->colors = $value;
 				self::$maxColorKey = count($value) - 1;
 				self::$beginningKeyForData = self::$numberCurrentColorKey;
+			}elseif(is_string($value)){
+				return $this->set('colors',array($value));
 			}
 		}
 		elseif (!in_array($key, array('data', 'legend')))
